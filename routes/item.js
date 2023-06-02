@@ -36,7 +36,9 @@ router.get('/:id', async (req, res) => {
         req.flash('error', 'Cannot find that item!');
         return res.redirect('/homepage');
     }
-    res.render('items/detail', { item });
+    const store = await Store.findOne({ user: req.user._id })
+
+    res.render('items/detail', { item, store});
 })
 
 module.exports = router;
