@@ -22,3 +22,6 @@ NOTES:
 -> mastiin barang nyampe dgn kualitas ttp bagus, kasi harga 1500 per barang
 3. di setiap detail produk, pastiin ada comments
 4. di setiap halaman store ada detail (rating, dll)
+
+
+TESTTTTTTTTTTTTTKSODSODISJDDIOJSNDOSMONDO
