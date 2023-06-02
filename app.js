@@ -71,6 +71,7 @@ app.use(methodOverride('_method'));
 const itemRoutes = require('./routes/item');
 const userRoutes = require('./routes/user');
 const storeRoutes = require('./routes/store');
+const reviewRoutes = require('./routes/review');
 
 //public setup
 app.use(express.static(path.join(__dirname, 'public')))
@@ -79,6 +80,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/item', itemRoutes);
 app.use('/user', userRoutes);
 app.use('/store', storeRoutes); 
+app.use('/item/:id/reviews', reviewRoutes);
+
 app.get('/homepage', (req, res) => {
     res.render('homepage');
 })

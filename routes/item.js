@@ -24,4 +24,19 @@ router.post('/', async (req, res) => {
     res.send('item added')
 })
 
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+    const item = await Item.findById(id).populate({
+        path: 'reviews',
+        populate: {
+            path: 'user'
+        }
+    }).populate('user');
+    if (!item) {
+        req.flash('error', 'Cannot find that item!');
+        return res.redirect('/homepage');
+    }
+    res.render('items/detail', { item });
+})
+
 module.exports = router;
