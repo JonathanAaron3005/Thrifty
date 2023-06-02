@@ -1,0 +1,24 @@
+Use Case 
+1. Login (pembeli & penjual)
+2. Add shopping cart (pembeli)
+3. Update/Delete shopping cart (pembeli)
+4. Place order (pembeli)
+5. Add product (penjual)
+6. Delete/Update product (penjual)
+7. View product detail (pembeli)
+8. Browse Product (pembeli & penjual)
+9. Shipping Product from Seller to Admin (pembeli)
+10. Shipping Product from Admin to Buyer (admin)
+11. Logout (pembeli & penjual)
+
+seller -> gudang kita buat diproses admin -> buyer
+
+bukan ==> seller -> buyer
+
+NOTES:
+1. jgn lupa di register page, kalo mo register as seller (buat akun seller) harus upload foto ktp
+-> mastiin kualiatas barang yang dijual beli
+2. sblom buyer place order/proceed payment, siapin satu checkbox buat extra protection 
+-> mastiin barang nyampe dgn kualitas ttp bagus, kasi harga 1500 per barang
+3. di setiap detail produk, pastiin ada comments
+4. di setiap halaman store ada detail (rating, dll)
