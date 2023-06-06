@@ -21,8 +21,8 @@ router.post('/register', async (req, res) => {
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, err => {
             if (err) return next(err);
-            req.flash('success', 'Welcome to Thrifty!');
-            res.redirect('/homepage');
+            req.flash('success', 'Welcome to Thrifty! Create a Store to Start Selling Items!');
+            res.redirect('/store/new');
         })
     } catch (e) {
         req.flash('error', e.message);
