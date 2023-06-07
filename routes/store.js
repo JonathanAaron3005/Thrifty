@@ -12,6 +12,7 @@ router.post('/', async (req, res) => {
     store.user = req.user._id;
     
     await store.save();
+    req.flash('success', 'Successfuly Created Store!');
     res.redirect('/homepage');
 })
 

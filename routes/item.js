@@ -36,7 +36,7 @@ router.get('/:id', async (req, res) => {
         req.flash('error', 'Cannot find that item!');
         return res.redirect('/homepage');
     }
-    const store = await Store.findOne({ user: req.user._id })
+    const store = await Store.findOne({ items: { $elemMatch: { $eq: id } } });
 
     res.render('items/detail', { item, store});
 })
