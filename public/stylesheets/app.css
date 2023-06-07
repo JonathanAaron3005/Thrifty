@@ -1,0 +1,40 @@
+.footer {
+    height: 60px;
+}
+
+.abovefooter {
+    margin-bottom: 60px;
+}
+
+.color1 {
+    background-color: #FFBF75;
+}
+
+.color2 {
+    background-color: #FFF2C5;
+}
+
+.font {
+    font-family: "Poppins", sans-serif;
+}
+
+.brand-font {
+    font-family: "Kaisei Opti", sans-serif;
+}
+
+.clean {
+    border: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+.black-btn {
+    background-color: black;
+    border-radius: 30px;
+    height: 60px;
+
+    font-size: x-large;
+    /* font-weight: bold; */
+    color: white;
+}

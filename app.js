@@ -15,7 +15,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const User = require('./models/user')
 
 //database setup
-mongoose.connect('mongodb://localhost:27017/thrifting', {
+mongoose.connect('mongodb://127.0.0.1:27017/thrifting', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
