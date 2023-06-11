@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 //server setup
 const express = require('express');
 const ejsMate = require('ejs-mate');
@@ -15,12 +19,12 @@ const mongoSanitize = require('express-mongo-sanitize');
 const User = require('./models/user')
 
 //database setup
-mongoose.connect('mongodb://127.0.0.1:27017/thrifting', {
+mongoose.connect('mongodb://localhost:27017/thrifting', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
     useFindAndModify: false
-})
+})  
 .then(() => console.log('Connected!'));
 
 //setup session

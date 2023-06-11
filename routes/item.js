@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Item = require('../models/item');
 const Store = require('../models/store');
+const multer = require('multer');
+const { storage } = require('../cloudinary');
+const upload = multer({ storage });
 
 router.get('/', async (req, res) => {
     const items = await Item.find({});
@@ -12,16 +15,19 @@ router.get('/new', async (req, res) => {
     res.render('items/new');
 })
 
-router.post('/', async (req, res) => {
+router.post('/', upload.array('image'), async (req, res) => {
     const currentUser = req.user._id;
     const store = await Store.findOne({ user: currentUser })
-    const item = new Item(req.body)
+    const item = new Item(req.body);
+    item.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     item.user = currentUser;
     store.items.push(item);
 
     await item.save();
     await store.save();
-    res.send('item added')
+    
+    req.flash('success', 'item added!');
+    res.redirect(`/item/${item._id}`);
 })
 
 router.get('/:id', async (req, res) => {
