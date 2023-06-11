@@ -14,4 +14,13 @@ router.post('/', async (req, res) => {
     res.redirect(`/item/${item._id}`);
 })
 
+router.delete('/:reviewId', async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Item.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
+    req.flash('success', 'Successfully deleted review')
+    res.redirect(`/item/${id}`);
+
+})
+
 module.exports = router;
