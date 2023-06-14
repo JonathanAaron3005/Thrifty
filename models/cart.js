@@ -8,12 +8,11 @@ const CartSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    items: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Item'
-        }
-    ]
+    item: {
+        type: Schema.Types.ObjectId,
+        ref: 'Item'
+    },
+    quantity: Number
 })
 
 module.exports = mongoose.model('Cart', CartSchema);
