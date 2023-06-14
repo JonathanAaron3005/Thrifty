@@ -1,15 +1,15 @@
 Use Case 
-1. Login (pembeli & penjual)
-2. Add shopping cart (pembeli)
+1. Login (pembeli & penjual) --> UDAH (register kurang bbrp fitur)
+2. Add shopping cart (pembeli) --> UDAH
 3. Update/Delete shopping cart (pembeli)
 4. Place order (pembeli)
-5. Add product (penjual)
-6. Delete/Update product (penjual)
-7. View product detail (pembeli)
+5. Add product (penjual) --> UDAH 
+6. Delete/Update product (penjual) --> UDAH
+7. View product detail (pembeli) --> UDAH
 8. Browse Product (pembeli & penjual)
 9. Shipping Product from Seller to Admin (pembeli)
 10. Shipping Product from Admin to Buyer (admin)
-11. Logout (pembeli & penjual)
+11. Logout (pembeli & penjual) --> UDAH
 
 seller -> gudang kita buat diproses admin -> buyer
 
