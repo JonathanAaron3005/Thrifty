@@ -44,7 +44,7 @@ router.get('/:id', async (req, res) => {
         return res.redirect('/homepage');
     }
     const store = await Store.findOne({ items: { $elemMatch: { $eq: id } } });
-
+    
     res.render('items/detail', { item, store });
 })
 
