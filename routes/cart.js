@@ -17,7 +17,6 @@ router.post('/:itemId', async (req, res) => {
 
     await cart.save();
     req.flash('success', `${item.name} added to cart!`);
-    
     res.redirect(`/cart`);
 })
 
@@ -25,6 +24,15 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     await Cart.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted item')
+    res.redirect('/cart');
+})
+
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const cart = await Cart.findByIdAndUpdate(id, req.body).populate('item');
+    await cart.save();
+
+    req.flash('success', `${cart.item.name} quantity updated!`);
     res.redirect('/cart');
 })
 

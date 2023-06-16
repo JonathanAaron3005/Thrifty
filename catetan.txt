@@ -1,7 +1,7 @@
 Use Case 
 1. Login (pembeli & penjual) --> UDAH (register kurang bbrp fitur)
 2. Add shopping cart (pembeli) --> UDAH
-3. Update/Delete shopping cart (pembeli)
+3. Update/Delete shopping cart (pembeli) --> UDAH
 4. Place order (pembeli)
 5. Add product (penjual) --> UDAH 
 6. Delete/Update product (penjual) --> UDAH
