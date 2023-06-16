@@ -56,11 +56,24 @@ passport.deserializeUser(User.deserializeUser());
 
 //setup locals
 app.use((req, res, next) => {
-    res.locals.currentUser = req.user;
-    res.locals.success = req.flash('success');
-    res.locals.error = req.flash('error');
-    next();
-})
+    if (req.user) {
+      req.user.populate('role').execPopulate()
+        .then((populatedUser) => {
+          res.locals.currentUser = populatedUser;
+          res.locals.success = req.flash('success');
+          res.locals.error = req.flash('error');
+          next();
+        })
+        .catch((err) => {
+          res.send(err)
+        });
+    } else {
+      res.locals.currentUser = null;
+      res.locals.success = req.flash('success');
+      res.locals.error = req.flash('error');
+      next();
+    }
+  });
 
 //setup ejs
 app.engine('ejs', ejsMate)
