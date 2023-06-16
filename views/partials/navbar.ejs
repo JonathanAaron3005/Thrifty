@@ -10,7 +10,7 @@
                 <a class="nav-link" href="/">Home</a>
                 <a class="nav-link" href="/item">View Products</a>
                 <a class="nav-link" href="/item/new">Add New Product</a>
-                <% if(currentUser) {%>
+                <% if(currentUser && currentUser.role.name === "buyer") {%>
                 <a class="nav-link" href="/cart">View Cart</a>
                 <% } %>
             </div>
