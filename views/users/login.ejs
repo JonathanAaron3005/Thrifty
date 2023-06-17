@@ -1,23 +1,8 @@
 <% layout('layouts/boilerplate')%>
 
-<!-- TODO: fix scrolling. -->
-<style>
-    .container {
-        margin-left: 0;
-        margin-right: 0;
-        width: calc(100vw - 1rem);
-    }
-
-    .container.mt-5 {
-        margin: 0 0 0 0;
-        padding: 0 0 0 0;
-    }
-</style>
-
-<div class="bypass-container d-flex flex-column align-items-center">
-    <div style="flex-grow: 1; overflow-y: auto; overflow-x: hidden; min-width: 100vw;">
-        <div class="row">
-            <div class="col-md-6 offset-md-3 orange d-flex flex-column align-items-center" style="margin-top: 5rem; min-height: calc(100vh - 12rem);">
+<div class="d-flex flex-column align-items-center" style="height: fit-content; min-height: calc(100% - 88px + 32px); overflow-y: auto;">
+    <div class="row" style="width: 100%;">
+        <div class="col-md-6 offset-md-3 orange flex-column d-flex align-items-center" style="margin-top: 10vh; min-height: calc(100% - 88px);">
             <div class="font-kaisei" style="margin-top: 3rem;">Thrifty</div>
             <h1 class="card-title font-poppins" style="margin-bottom: 3rem;">Login</h1>
             <form action="/user/login" method="POST" class="validated-form w-100 d-flex flex-column align-items-center" novalidate>

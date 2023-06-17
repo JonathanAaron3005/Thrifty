@@ -109,6 +109,10 @@ app.get('/homepage', (req, res) => {
     res.render('homepage');
 })
 
+app.get('/', (req, res) => {
+  res.redirect('/homepage');
+})
+
 app.listen(3000, () => {
     console.log('Serving on port 3000');
 })

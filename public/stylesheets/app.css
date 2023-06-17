@@ -39,10 +39,3 @@
     /* font-weight: bold; */
     color: white;
 }
-
-.bypass-container {
-    width: 100vw; 
-    height: calc(100vh - 7rem); 
-    margin-top: -3rem;
-    overflow-y: auto;
-}

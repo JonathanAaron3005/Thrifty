@@ -13,22 +13,29 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-    try {
-        const { email, username, password, DOB, phoneNumber, address, role } = req.body;
-        const findRole = await Role.findOne({ name: role });
-        const roleId = findRole._id;
-        const user = new User({ email, username, DOB, phoneNumber, address, role: roleId });
-        const registeredUser = await User.register(user, password);
-        req.login(registeredUser, err => {
-            if (err) return next(err);
+    const { email, username, password, DOB, phoneNumber, address, role } = req.body;
+
+    const findRole = await Role.findOne({ name: role });
+    if (findRole == null) {
+        req.flash('error', "You cannot assign other roles.");
+        res.redirect('/user/register');
+        return;
+    }
+
+    const roleId = findRole._id;
+    const user = new User({ email, username, DOB, phoneNumber, address, role: roleId });
+    const registeredUser = await User.register(user, password);
+
+    req.login(registeredUser, err => {
+        if (err) return next(err);
+        if (role == "seller") {
             req.flash('success', 'Welcome to Thrifty! Create a Store to Start Selling Items!');
             res.redirect('/store/new');
-        })
-    } catch (e) {
-        req.flash('error', e.message);
-        console.log(e.message);
-        res.redirect('/user/register');
-    }
+        } else {
+            req.flash('success', 'Welcome to Thrifty!');
+            res.redirect('/homepage');
+        }
+    })
 })
 
 router.get('/login', (req, res) => {
@@ -38,7 +45,7 @@ router.get('/login', (req, res) => {
 router.post('/login', 
     passport.authenticate('local', { failureFlash: true, failureRedirect: '/user/login' }),
     async (req, res) => {
-        req.flash('success', 'welcome back!');
+        req.flash('success', 'Welcome back!');
         res.redirect('/homepage');
     })
 
