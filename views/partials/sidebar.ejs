@@ -1,0 +1,69 @@
+<style>
+    .button {
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        border: none;
+    }
+
+    .button.rounded {
+        border-radius: 100px;
+        background-color: rgb(230, 230, 230);
+    }
+
+    .button.circle {
+        border-radius: 100px;
+        background-color: rgb(255, 198, 113);
+    }
+
+    .floaty {
+        position: fixed; 
+        width: 100px; 
+        height: fit-content; 
+        bottom: 10px; 
+        right: 25px;
+    }
+
+    @media (max-width: 400px) {
+        .large {
+            display: none;
+        }
+    }
+</style>
+
+<div id="floaty" class="large floaty d-flex flex-column justify-content-center align-items-center" style="<%= currentUser === null ? 'display: none;' : ''%>">
+    <button class="button rounded mb-3" style="width: 80%; height: 80px">
+        awkoawko
+    </button>
+    
+    <button class="button rounded mb-3" style="width: 80%; height: 80px">
+        
+    </button>
+
+    <button class="button circle" style="width: 100%; height: 100px">
+        
+    </button>
+</div>
+
+<script>
+    function update(scroller) {
+        var floatingDiv = document.getElementById('floaty');
+        var footer = document.getElementById('foot');
+
+        var y = scroller.scrollTop
+        var y2 = (footer.offsetTop - 10) - window.innerHeight
+        
+        if (y > y2) {
+            floatingDiv.style.bottom = (y - y2) + "px"
+        } else {
+            floatingDiv.style.bottom = ""
+        }
+    }
+
+    window.addEventListener("DOMContentLoaded", function() {
+        var scroller = document.getElementById('scroller');
+        scroller.addEventListener("scroll", function() {
+            update(scroller)
+        })
+
+        update(scroller);
+    });
+  </script>

@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate')%>
 <link rel="stylesheet" href="/stylesheets/stars.css">
-<div class="row">
+<div class="row d-flex flex-column align-items-center" style="height: fit-content; min-height: calc(100% - 0px);">
     <div class="col-6">
         <div id="itemCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -31,7 +31,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">From <%= store.name%></li>
                 <li class="list-group-item">Submitted by <%= item.user.username%></li>
-                <li class="list-group-item">IDR <%= item.price%>,00</li>
+                <li class="list-group-item price-label" value="<%= item.price%>"></li>
             </ul>
             <%  if( currentUser && item.user.equals(currentUser._id))  {%>
             <div class="card-body">
@@ -57,6 +57,15 @@
         </div>
 
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(ev) {
+            document.querySelectorAll('.price-label').forEach(element => {
+                element.textContent = formatInteger(element.value)
+            })
+        })
+    </script>
+
     <div class="col-6">
         <div id='map' ></div>
 

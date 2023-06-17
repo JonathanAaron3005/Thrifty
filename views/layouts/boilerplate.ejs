@@ -39,8 +39,11 @@
 </head>
 
 <body class="d-flex flex-column">
+    <script src='/javascripts/utility.js'></script>
+
     <%- include('../partials/navbar')%>
-    <div style="overflow: hidden auto; height: calc(100vh - 88px);", scrollTop=0>
+    <%- include('../partials/sidebar')%>
+    <div id="scroller" style="overflow: hidden auto; height: calc(100vh - 88px);", scrollTop=0>
         <div style="height: calc(100% - 88px + 32px);">
             <%- include('../partials/flash')%>
             <%- body %>

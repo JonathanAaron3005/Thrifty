@@ -20,7 +20,7 @@
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="padding-top: 0rem; padding-bottom: 0; background-color: black;">
     <div class="container-fluid" style="height: 88px;">
-        <a class="navbar-brand font-kaisei" style="height: 88px; font-size: 44px" href="/">Thrifty</a>
+        <a class="navbar-brand font-kaisei" style="font-size: 44px" href="/">Thrifty</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -28,8 +28,10 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="height: 100%">
             <div class="navbar-nav" style="height: fit-content; margin-top: calc(88px - 24px - 1rem)">
                 <a class="text dohover" href="/">Home</a>
-                <a class="text dohover" href="/item">View Products</a>
-                <a class="text dohover" href="/item/new">Add New Product</a>
+                <a class="text dohover" href="/item">Products</a>
+                <% if(currentUser && currentUser.role.name === "seller") {%>
+                    <a class="text dohover" href="/item/new">New Product</a>
+                <% }%>
                 <% if(currentUser && currentUser.role.name === "buyer") {%>
                     <a class="text dohover" href="/cart">View Cart</a>
                 <% } %>
