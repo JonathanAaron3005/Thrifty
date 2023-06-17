@@ -1,65 +1,152 @@
 <% layout('layouts/boilerplate')%>
 
-<div class="container d-flex justify-content-center align-items-center mt-5">
-    <div class="row">
-        <div class="col-lg-6 offset-lg-3 fixed-bottom abovefooter h-75">
-            <div class="card-body h-100 color1">
-                <h5 class="card-title">Register</h5>
-                <form action="/user/register" method="POST" class="validated-form" novalidate>
-                    <div class="mb-3">
-                        <label class="form-label" for="username">Username</label>
-                        <input class="form-control" type="text" id="username" name="username" required autofocus>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="email">Email</label>
-                        <input class="form-control" type="email" id="email" name="email" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="password">Password</label>
-                        <input class="form-control" type="password" id="password" name="password" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="dob">Date of Birth</label>
-                        <input class="form-control" type="date" id="dob" name="DOB" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="phone">Phone Number</label>
-                        <input class="form-control" type="text" id="phone" name="phoneNumber" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="address">Address</label>
-                        <textarea class="form-control" type="text" id="address" 
-                            name="address" required></textarea>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="role">Role</label>
-                        <input class="form-control" type="text" id="role" name="role" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <button class="btn btn-success btn-block">Register</button>
-                </form>
+<style>
+    .option {
+        opacity: 0.5;
+    }
 
+    .option.active {
+        opacity: 1;
+    }
+
+    .btn.custom-btn {
+        border: none;
+        border-radius: 0;
+
+        background-color: black;
+        color: white;
+    }
+
+    .form-control {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .left-align {
+        text-align: left;
+    }
+
+    .container {
+        margin-left: 0;
+        margin-right: 0;
+        width: calc(100vw - 1rem);
+    }
+
+    .container.mt-5 {
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+    }
+</style>
+
+<div class="bypass-container d-flex flex-column align-items-center">
+    <div style="flex-grow: 1; overflow-y: auto; overflow-x: hidden; min-width: 100vw;">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 orange d-flex flex-column align-items-center" style="margin-top: 5rem; min-height: calc(100vh - 12rem);">
+                <div class="font-kaisei" style="margin-top: 3rem;">Thrifty</div>
+                <h1 class="card-title font-poppins" style="margin-bottom: 3rem;">Register</h1>
+    
+                <form action="/user/register" method="POST" class="validated-form w-100 d-flex flex-column align-items-center" novalidate onsubmit="return validateForm()">
+                    <div class="font-poppins">Register as</div>
+                    <div class="mb-3">
+                        <button type="button" class="btn custom-btn option active" onclick="toggleActive(this)">Member</button>
+                        <button type="button" class="btn custom-btn option" onclick="toggleActive(this)">Seller</button>
+                        <input type="hidden" id="role" name="role" value="Member">
+                    </div>
+    
+                    <div class="font-poppins left-align w-50 mb-1">Personal Data</div>
+                    <input type="text" id="name" name="name" class="form-control w-50 font-poppins mb-3" placeholder="Full Name" autocomplete="off" autofocus required>
+                    <input type="date" id="dob" name="DOB" class="form-control w-50 font-poppins mb-3" placeholder="Date of Birth" autocomplete="off" required>
+                    <input type="tel" id="phone" name="phone" class="form-control w-50 font-poppins mb-3" placeholder="Phone Number" autocomplete="off" required>
+    
+                    <div class="font-poppins left-align w-50 mb-1">Account Data</div>
+                    <input type="email" id="username" name="username" class="form-control w-50 font-poppins mb-3" placeholder="Email" autocomplete="off" required>
+                    <input type="address" id="address" name="address" class="form-control w-50 font-poppins mb-3" placeholder="Address" autocomplete="off" required>
+                    <input type="password" id="password" name="password" class="form-control w-50 font-poppins mb-3" placeholder="Password" autocomplete="off" required>
+                    <input type="password" id="confirmpassword" name="confirmpassword" class="form-control w-50 font-poppins" placeholder="Confirm Password" autocomplete="off" required>
+                    <small id="passworderror" class="form-text text-danger d-none font-poppins">Passwords do not match. Please try again.</small>
+                    <button type="submit" class="black-rounded-button font-poppins w-50 mb-2 mt-3">Login</button>
+                    <p class="font-poppins">Already a member? <a style="font-weight: bolder; text-decoration: none;" href="/user/login">Login.</a></p>
+                </form>
+    
+                <script>
+                    function toggleActive(button) {
+                        const buttons = document.querySelectorAll('.option');
+                        buttons.forEach(btn => {
+                            if (btn === button) {
+                                btn.classList.add('active');
+                                document.getElementById('role').value = btn.innerText;
+                            } else {
+                                btn.classList.remove('active');
+                            }
+                        });
+                    }
+    
+                    function validateForm() {
+                        const passwordInput = document.getElementById('password');
+                        const confirmPasswordInput = document.getElementById('confirmpassword');
+                        const confirmPasswordError = document.getElementById('passworderror');
+                  
+                        const password = passwordInput.value;
+                        const confirmPassword = confirmPasswordInput.value;
+                  
+                        if (password === '' || confirmPassword === '') {
+                            confirmPasswordError.innerText = "Password can't be empty!"
+                            confirmPasswordError.classList.remove('d-none');
+                          return false;
+                        }
+                        if (password !== confirmPassword) {
+                            confirmPasswordError.innerText = "Passwords do not match. Please try again."
+                            confirmPasswordError.classList.remove('d-none');
+                          return false;
+                        }
+                        return true;
+                      }
+                </script>
             </div>
         </div>
     </div>
 </div>
+
+<!-- <div class="bypass-container">
+    <div class="row fill" style="width: 100%; margin: 0 0 0 0;">
+        <div id="contents" class="col-md-4 offset-md-4 orange fixed-bottom above-footer d-flex flex-column align-items-center">
+            <div class="font-kaisei" style="margin-top: 3rem;">Thrifty</div>
+            <h1 class="card-title font-poppins" style="margin-bottom: 3rem;">Register</h1>
+            <form action="/user/register" method="POST" class="validated-form w-100 d-flex flex-column align-items-center no-gutters" novalidate onsubmit="return validateForm()">
+                <div class="font-poppins">Register as</div>
+                <div class="mb-3">
+                    <button type="button" class="btn custom-btn option active" onclick="toggleActive(this)">Member</button>
+                    <button type="button" class="btn custom-btn option" onclick="toggleActive(this)">Seller</button>
+                    <input type="hidden" id="role" name="role" value="Member">
+                </div>
+
+                <div class="font-poppins left-align w-50 mb-1">Personal Data</div>
+                <input type="text" id="name" name="name" class="form-control w-50 font-poppins mb-3" placeholder="Full Name" autocomplete="off" autofocus required>
+                <input type="date" id="dob" name="DOB" class="form-control w-50 font-poppins mb-3" placeholder="Date of Birth" autocomplete="off" required>
+                <input type="tel" id="phone" name="phone" class="form-control w-50 font-poppins mb-3" placeholder="Phone Number" autocomplete="off" required>
+
+                <div class="font-poppins left-align w-50 mb-1">Account Data</div>
+                <input type="email" id="username" name="username" class="form-control w-50 font-poppins mb-3" placeholder="Email" autocomplete="off" required>
+                <input type="address" id="address" name="address" class="form-control w-50 font-poppins mb-3" placeholder="Address" autocomplete="off" required>
+                <input type="password" id="password" name="password" class="form-control w-50 font-poppins mb-3" placeholder="Password" autocomplete="off" required>
+                <input type="password" id="confirmpassword" name="confirmpassword" class="form-control w-50 font-poppins" placeholder="Confirm Password" autocomplete="off" required>
+                <small id="passworderror" class="form-text text-danger d-none font-poppins">Passwords do not match. Please try again.</small>
+                <button type="submit" class="black-rounded-button font-poppins w-50 mb-2 mt-3">Login</button>
+            </form>
+            <p class="font-poppins">Already a member? <a style="font-weight: bolder; text-decoration: none;" href="/user/login">Login.</a></p>
+
+            
+                  window.addEventListener('DOMContentLoaded', function() {
+                    var contentContainer = document.getElementById('contents');
+                    var contentHeight = contentContainer.clientHeight;
+                    
+                    const containers = document.querySelectorAll('.container');
+                    containers.forEach(container => {
+                        container.style.height = contentHeight + "px";
+                    })
+                  });
+            </script>
+        </div>
+    </div>
+</div> -->

@@ -1,40 +1,48 @@
-.footer {
-    height: 60px;
+.above-footer {
+    margin-bottom: 3.5rem;
 }
 
-.abovefooter {
-    margin-bottom: 60px;
-}
-
-.color1 {
+.orange {
     background-color: #FFBF75;
 }
 
-.color2 {
+.light-orange {
     background-color: #FFF2C5;
 }
 
-.font {
+.font-poppins {
     font-family: "Poppins", sans-serif;
 }
 
-.brand-font {
+.font-kaisei {
     font-family: "Kaisei Opti", sans-serif;
 }
 
-.clean {
+.form-control.no-border {
     border: none;
+    border-radius: 0;
     box-shadow: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
 }
 
-.black-btn {
+.alert {
+    z-index: 9999;
+}
+
+.black-rounded-button {
     background-color: black;
     border-radius: 30px;
     height: 60px;
+    box-shadow: none;
+    border: none;
 
     font-size: x-large;
     /* font-weight: bold; */
     color: white;
+}
+
+.bypass-container {
+    width: 100vw; 
+    height: calc(100vh - 7rem); 
+    margin-top: -3rem;
+    overflow-y: auto;
 }

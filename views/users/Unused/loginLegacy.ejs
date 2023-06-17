@@ -1,0 +1,31 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3 fixed-bottom abovefooter h-75">
+            <div class="color1 h-100" style="padding: 2rem 0 2rem 0;">
+                <!-- <img src="https://plus.unsplash.com/premium_photo-1673458070037-8cc98a465c0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=455&q=80"
+                    alt="" class="card-img-top" /> -->
+                <div class="d-flex flex-column justify-content-center align-items-center w-100">
+                    <h4 class="text-center w-100 brand-font mb-4 mt-4">Thrifty</h4>
+                    <h1 class="card-title display-4 text-center w-100 font mb-5">Login</h1>
+                    <form action="/user/login" method="POST" class="validated-form w-50" novalidate>
+                        <div class="mb-3 w-100">
+                            <input class="font clean w-100 " style="padding-left: 10px; height: 40px;" placeholder="Username" type="text" id="username" name="username" autofocus required>
+                            <div class="valid-feedback font">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="mb-5 w-100">
+                            <input class="font clean w-100" style="padding-left: 10px; height: 40px;" placeholder="Password" type="password" id="password" name="password" required>
+                            <div class="valid-feedback font">
+                                Looks good!
+                            </div>
+                        </div>
+                        <button class="clean black-btn font w-75" style="margin-left: 12.5%">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

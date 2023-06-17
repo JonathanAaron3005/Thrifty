@@ -19,13 +19,17 @@ const mongoSanitize = require('express-mongo-sanitize');
 const User = require('./models/user')
 
 //database setup
-mongoose.connect('mongodb://localhost:27017/thrifting', {
+const mongoOptions = {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
-})  
-.then(() => console.log('Connected!'));
+    useFindAndModify: false,
+    serverSelectionTimeoutMS: 1000,
+}
+
+mongoose.connect('mongodb://localhost:27017/thrifting', mongoOptions)  
+.then(() => console.log("Connected to localhost!"), function() {return mongoose.connect('mongodb://127.0.0.1:27017/thrifting', mongoOptions)})
+.then(() => console.log("Connected to 127.0.0.1!"), () => console.log("Failed connecting to mongoose!"))
 
 //setup session
 const sessionConfig = {
