@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- 
+    do not touch UNLESS
+    you know what
+    you are doing.
+
+    spent nearly 2
+    hours just to make a 
+    single div scrollable 
+    and working properly.
+
+    do we really need footer tho 
+ -->
+
 <style>
     .body {
         overflow: hidden hidden;
@@ -25,14 +38,14 @@
     <link rel="stylesheet" href="/stylesheets/app.css">
 </head>
 
-<body class="d-flex flex-column" style="overflow: hidden hidden; flex-grow: 1">
+<body class="d-flex flex-column">
     <%- include('../partials/navbar')%>
-    <div style="overflow: hidden auto; height: calc(100vh - 88px);" scrollTop=0>
-        <main style="height: 100%">
+    <div style="overflow: hidden auto; height: calc(100vh - 88px);", scrollTop=0>
+        <div style="height: calc(100% - 88px + 32px);">
             <%- include('../partials/flash')%>
             <%- body %>
             <%- include('../partials/footer')%>
-        </main>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

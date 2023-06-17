@@ -1,25 +1,45 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark" style="padding-top: 3rem; padding-bottom: 0">
-    <div class="container-fluid">
-        <a class="navbar-brand font-kaisei" href="/">Thrifty</a>
+<style>
+    .text {
+        padding: 0 0 0 0;
+        margin: 0rem 0.5rem 0rem 0.5rem;
+        font-size: 0.9rem;
+
+        color: white;
+        font-family: "Kaisei Opti", sans-serif;
+        text-decoration: none;
+    }
+
+    .dohover:hover {
+        color: grey;
+    }
+
+    .navbar-nav {
+        padding: 0 0 0 0;
+    }
+</style>
+
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="padding-top: 0rem; padding-bottom: 0; background-color: black;">
+    <div class="container-fluid" style="height: 88px;">
+        <a class="navbar-brand font-kaisei" style="height: 88px; font-size: 44px" href="/">Thrifty</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/item">View Products</a>
-                <a class="nav-link" href="/item/new">Add New Product</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="height: 100%">
+            <div class="navbar-nav" style="height: fit-content; margin-top: calc(88px - 24px - 1rem)">
+                <a class="text dohover" href="/">Home</a>
+                <a class="text dohover" href="/item">View Products</a>
+                <a class="text dohover" href="/item/new">Add New Product</a>
                 <% if(currentUser && currentUser.role.name === "buyer") {%>
-                <a class="nav-link" href="/cart">View Cart</a>
+                    <a class="text dohover" href="/cart">View Cart</a>
                 <% } %>
             </div>
-            <div class="navbar-nav ml-auto">
+            <div class="navbar-nav ml-auto" style="height: fit-content; margin-top: calc(88px - 24px - 1rem)">
                 <% if(!currentUser) {%>
-                <a class="nav-link" href="/user/login">Login</a>
-                <a class="nav-link" href="/user/register">Register</a>
+                    <a class="nav-link" href="/user/login">Login</a>
+                    <a class="nav-link" href="/user/register">Register</a>
                 <% } else {%>
-                <a class="nav-link" href="/user/logout">Logout</a>
+                    <p class="text">Welcome <%= currentUser.username %>. <a style="font-weight: bolder; text-decoration: none;" href="/user/logout">Logout</a></p>
                 <% } %>
             </div>
         </div>
