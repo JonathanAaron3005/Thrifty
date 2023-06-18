@@ -7,6 +7,7 @@ const Cart = require('../models/cart');
 router.get('/', async (req, res) => {
     const transactions = await Transaction.find({ user: req.user }).populate('item');
     console.log(transactions)
+    res.send('transaction created');
     // res.render('transactions/view', { transactions });
 })
 
