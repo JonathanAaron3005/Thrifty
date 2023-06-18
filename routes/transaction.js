@@ -5,10 +5,7 @@ const Transaction = require('../models/transaction');
 const Cart = require('../models/cart');
 
 router.get('/', async (req, res) => {
-    const transactions = await Transaction.find({ user: req.user });
-    for (let detail of transactions.detail){
-        await detail.populate('item');
-    }
+    const transactions = await Transaction.find({ user: req.user }).populate('item');
     res.render('transactions/view', { transactions });
 })
 
