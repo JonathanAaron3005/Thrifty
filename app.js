@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV !== "production") {
-    require('dotenv').config();
+  require('dotenv').config();
 }
 
 //server setup
@@ -21,29 +21,29 @@ const Store = require('./models/store')
 
 //database setup
 const mongoOptions = {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    serverSelectionTimeoutMS: 1000,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  serverSelectionTimeoutMS: 1000,
 }
 
-mongoose.connect('mongodb://localhost:27017/thrifting', mongoOptions)  
-.then(() => console.log("Connected to localhost!"), function() {return mongoose.connect('mongodb://127.0.0.1:27017/thrifting', mongoOptions)})
-.then(() => console.log("Connected to 127.0.0.1!"), () => console.log("Failed connecting to mongoose!"))
+mongoose.connect('mongodb://localhost:27017/thrifting', mongoOptions)
+  .then(() => console.log("Connected to localhost!"), function () { return mongoose.connect('mongodb://127.0.0.1:27017/thrifting', mongoOptions) })
+  .then(() => console.log("Connected to 127.0.0.1!"), () => console.log("Failed connecting to mongoose!"))
 
 //setup session
 const sessionConfig = {
-    name: 'session',
-    secret: 'thisshouldbeabettersecret!',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        // secure: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
-    }
+  name: 'session',
+  secret: 'thisshouldbeabettersecret!',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    // secure: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  }
 }
 
 const app = express();
@@ -61,24 +61,24 @@ passport.deserializeUser(User.deserializeUser());
 
 //setup locals
 app.use(async (req, res, next) => {
-    if (req.user) {
-      req.user.populate('role').execPopulate()
-        .then(async (populatedUser) => {
-          res.locals.currentUser = populatedUser;
-          res.locals.userStore = await Store.findOne({ items: { $elemMatch: { $eq: id } } });
-          res.locals.success = req.flash('success');
-          res.locals.error = req.flash('error');
-          next();
-        })
-        .catch((err) => {
-          res.send(err)
-        });
-    } else {
-      res.locals.currentUser = null;
-      res.locals.success = req.flash('success');
-      res.locals.error = req.flash('error');
-      next();
-    }
+  if (req.user) {
+    req.user.populate('role').execPopulate()
+      .then(async (populatedUser) => {
+        res.locals.currentUser = populatedUser;
+        res.locals.userStore = await Store.findOne({ user: populatedUser._id });
+        res.locals.success = req.flash('success');
+        res.locals.error = req.flash('error');
+        next();
+      })
+      .catch((err) => {
+        res.send(err)
+      });
+  } else {
+    res.locals.currentUser = null;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+  }
 });
 
 //setup ejs
@@ -103,12 +103,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/item', itemRoutes);
 app.use('/user', userRoutes);
-app.use('/store', storeRoutes); 
+app.use('/store', storeRoutes);
 app.use('/item/:id/reviews', reviewRoutes);
 app.use('/cart', cartRoutes);
 
 app.get('/homepage', (req, res) => {
-    res.render('homepage');
+  res.render('homepage');
 })
 
 app.get('/', (req, res) => {
@@ -116,5 +116,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(3000, () => {
-    console.log('Serving on port 3000');
+  console.log('Serving on port 3000');
 })
