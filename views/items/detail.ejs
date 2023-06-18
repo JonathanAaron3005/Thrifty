@@ -178,7 +178,7 @@
                 <div class="line" style="background-color: grey; width: 100%; height: 2px; opacity: 0.5; margin-bottom: 1rem;"></div>
                 <p class="font-poppins desc"><%= item.description%></p>
             </div>
-            <%  if( currentUser && currentUser.role != "seller")  {%>
+            <%  if( currentUser && currentUser.role.name != "seller")  {%>
                 <div class="col">
                     <div class="orange d-flex flex-column" style="width: 100%; height: fit-content; padding: 1rem 1rem">
                         <form action="/cart/<%= item._id %>" method="POST" class="validated-form" novalidate onsubmit="return validate()">
@@ -209,7 +209,7 @@
                 <div class="col"></div>
             <% } %>
         </div>
-        <% if (currentUser){%>
+        <% if (currentUser && currentUser.role.name == "buyer"){%>
             <h2>Leave a Review</h2>
             <form action="/item/<%=item._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
                 <!-- <div class="mb-3">
@@ -240,6 +240,7 @@
                 <button class="btn btn-success">Submit</button>
             </form>
         <% } %>
+        Comments
         <% for(let review of item.reviews) { %>
             <div class="card mb-3 ">
                 <div class="card-body">
