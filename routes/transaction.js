@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
-    const transaction = await Transaction.findById(id);
+    const transaction = await Transaction.findById(id).populate('item');
     res.render("transactions/detail", { transaction });
 })
 
