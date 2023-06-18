@@ -6,7 +6,7 @@
 
     .button.zeround {
         border-radius: 15px;
-        background-color: rgb(255, 255, 255);
+        /* background-color: rgb(255, 255, 255); */
     }
 
     .button.circle {
@@ -38,19 +38,21 @@
     }
 </style>
 
-<div id="floaty" class="large floaty d-flex flex-column justify-content-center align-items-center" style="<%= currentUser === null ? 'display: none;' : ''%>">
-    <a class="button zeround cgsahjdfas mb-3" style="width: 80%; height: 80px" href="/user/">
-        profile
-    </a>
-    
-    <a class="button zeround cgsahjdfas mb-3" style="width: 80%; height: 80px" href="/cart/">
-        cart
-    </a>
-
-    <a class="button circle cgsahjdfas orange" style="width: 100%; height: 100px" href="/transaction">
-        orders
-    </a>
-</div>
+<% if (currentUser != null) { %>
+    <div id="floaty" class="large floaty d-flex flex-column justify-content-center align-items-center">
+        <a class="button zeround cgsahjdfas mb-3 <%= currentUser && currentUser.role.name === 'seller' ? 'orange' : ''%>" style="width: 80%; height: 80px" href="/user/">
+            profile
+        </a>
+        <% if(currentUser && currentUser.role.name != "seller") {%>
+            <a class="button zeround cgsahjdfas mb-3" style="width: 80%; height: 80px" href="/cart/">
+                cart
+            </a>
+            <a class="button circle cgsahjdfas orange" style="width: 100%; height: 100px" href="/transaction">
+                orders
+            </a>
+        <% } %>
+    </div>
+<% } %>
 
 <script>
     function update(scroller) {
@@ -67,9 +69,13 @@
         }
     }
 
-    window.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function() {
         var scroller = document.getElementById('scroller');
+
         scroller.addEventListener("scroll", function() {
+            update(scroller)
+        })
+        window.addEventListener("scroll", function() {
             update(scroller)
         })
 
