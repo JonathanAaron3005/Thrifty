@@ -10,14 +10,19 @@ router.get('/', async (req, res) => {
 
 router.post('/:itemId', async (req, res) => {
     const { itemId } = req.params;
-    const item = await Item.findById(itemId);
-    const cart = new Cart(req.body);
-    cart.user = req.user._id;
-    cart.item = itemId;
+    if (req.body.quantity < 0) {
+        req.flash('error', 'quantity cannot be below 0!');
+        res.redirect(`/item/${itemId}`);
+    } else {
+        const item = await Item.findById(itemId);
+        const cart = new Cart(req.body);
+        cart.user = req.user._id;
+        cart.item = itemId;
 
-    await cart.save();
-    req.flash('success', `${item.name} added to cart!`);
-    res.redirect(`/cart`);
+        await cart.save();
+        req.flash('success', `${item.name} added to cart!`);
+        res.redirect(`/cart`);
+    }
 })
 
 router.delete('/:id', async (req, res) => {
@@ -29,11 +34,16 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const cart = await Cart.findByIdAndUpdate(id, req.body).populate('item');
-    await cart.save();
+    if (req.body.quantity < 0) {
+        req.flash('error', 'quantity cannot be below 0!');
+        res.redirect(`/cart`);
+    } else {
+        const cart = await Cart.findByIdAndUpdate(id, req.body).populate('item');
+        await cart.save();
 
-    req.flash('success', `${cart.item.name} quantity updated!`);
-    res.redirect('/cart');
+        req.flash('success', `${cart.item.name} quantity updated!`);
+        res.redirect('/cart');
+    }
 })
 
 module.exports = router;

@@ -17,18 +17,26 @@ router.get('/new', async (req, res) => {
 })
 
 router.post('/', upload.array('image'), async (req, res) => {
-    const currentUser = req.user._id;
-    const store = await Store.findOne({ user: currentUser })
-    const item = new Item(req.body);
-    item.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
-    item.user = currentUser;
-    store.items.push(item);
-
-    await item.save();
-    await store.save();
-
-    req.flash('success', 'item added!');
-    res.redirect(`/item/${item._id}`);
+    if(req.body.price < 0){
+        req.flash('error', 'price cannot be below 0!');
+        res.redirect(`/item/new`);
+    } else if(req.body.stock < 0){
+        req.flash('error', 'stock cannot be below 0!');
+        res.redirect(`/item/new`);
+    } else {
+        const currentUser = req.user._id;
+        const store = await Store.findOne({ user: currentUser })
+        const item = new Item(req.body);
+        item.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
+        item.user = currentUser;
+        store.items.push(item);
+    
+        await item.save();
+        await store.save();
+    
+        req.flash('success', 'item added!');
+        res.redirect(`/item/${item._id}`);
+    }
 })
 
 router.get('/:id', async (req, res) => {
@@ -50,20 +58,28 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', upload.array('image'), async (req, res) => {
     const { id } = req.params;
-    const item = await Item.findByIdAndUpdate(id, req.body);
-    if (req.files) {
-        const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
-        item.images.push(...imgs);
-    }
-    await item.save();
-    if (req.body.deleteImages) {
-        for (let filename of req.body.deleteImages) {
-            await cloudinary.uploader.destroy(filename);
+    if(req.body.price < 0){
+        req.flash('error', 'price cannot be below 0!');
+        res.redirect(`/item/${id}/edit`);
+    } else if(req.body.stock < 0){
+        req.flash('error', 'stock cannot be below 0!');
+        res.redirect(`/item/${id}/edit`);
+    } else {
+        const item = await Item.findByIdAndUpdate(id, req.body);
+        if (req.files) {
+            const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
+            item.images.push(...imgs);
         }
-        await item.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
+        await item.save();
+        if (req.body.deleteImages) {
+            for (let filename of req.body.deleteImages) {
+                await cloudinary.uploader.destroy(filename);
+            }
+            await item.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
+        }
+        req.flash('success', 'Successfully updated item!');
+        res.redirect(`/item/${item._id}`)
     }
-    req.flash('success', 'Successfully updated item!');
-    res.redirect(`/item/${item._id}`)
 })
 
 router.delete('/:id', async (req, res) => {

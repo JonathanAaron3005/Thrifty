@@ -111,13 +111,17 @@ app.use('/cart', cartRoutes);
 app.use('/transaction', trRoutes);
 
 app.get('/homepage', async (req, res) => {
-  const user = await User.findById(req.user._id).populate('role');
-  if(user.role.name === 'buyer'){
+  if(!req.user){
     res.redirect('/item');
-  } else {
-    const items = await Item.find({ user: req.user });
-    res.render('homepage', { items });
-  }
+  } 
+  else{
+    const user = await User.findById(req.user._id).populate('role');
+    if(user.role.name === 'buyer'){
+      res.redirect('/item');
+    } else {
+      const items = await Item.find({ user: req.user });
+      res.render('homepage', { items });
+    }}
 })
 
 app.get('/', (req, res) => {
