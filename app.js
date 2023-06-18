@@ -18,6 +18,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 //require from local folder
 const User = require('./models/user')
 const Store = require('./models/store')
+const Item = require('./models/item');
 
 //database setup
 const mongoOptions = {
@@ -109,8 +110,14 @@ app.use('/item/:id/reviews', reviewRoutes);
 app.use('/cart', cartRoutes);
 app.use('/transaction', trRoutes);
 
-app.get('/homepage', (req, res) => {
-  res.render('homepage');
+app.get('/homepage', async (req, res) => {
+  const user = await User.findById(req.user._id).populate('role');
+  if(user.role.name === 'buyer'){
+    res.redirect('/item');
+  } else {
+    const items = await Item.find({ user: req.user });
+    res.render('homepage', { items });
+  }
 })
 
 app.get('/', (req, res) => {

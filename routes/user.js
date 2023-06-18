@@ -33,7 +33,7 @@ router.post('/register', async (req, res) => {
             res.redirect('/store/new');
         } else {
             req.flash('success', 'Welcome to Thrifty!');
-            res.redirect('/homepage');
+            res.redirect('/item');
         }
     })
 })
@@ -42,17 +42,24 @@ router.get('/login', (req, res) => {
     res.render('users/login');
 })
 
-router.post('/login', 
+router.post('/login',
     passport.authenticate('local', { failureFlash: true, failureRedirect: '/user/login' }),
     async (req, res) => {
-        req.flash('success', 'Welcome back!');
-        res.redirect('/homepage');
+        const user = await User.findById(req.user._id).populate('role');
+        if (user.role.name === 'buyer') {
+            req.flash('success', 'Welcome back!');
+            res.redirect('/item');
+        } else {
+            req.flash('success', 'Welcome back!');
+            res.redirect('/homepage');
+        }
+
     })
 
 router.get('/logout', (req, res) => {
     req.logout();
     req.flash('success', "Successfully Logged Out!");
-    res.redirect('/homepage');
+    res.redirect('/item');
 })
 
 
