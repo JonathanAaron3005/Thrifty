@@ -21,10 +21,4 @@ router.post('/', async (req, res) => {
     res.redirect('/transaction');
 })
 
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    const transaction = await Transaction.findById(id).populate('item');
-    res.render("transactions/detail", { transaction });
-})
-
 module.exports = router;
