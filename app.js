@@ -59,25 +59,62 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //setup locals
+// app.use((req, res, next) => {
+//     if (req.user) {
+//       req.user.populate('role').execPopulate()
+//         .then((populatedUser) => {
+//           res.locals.currentUser = populatedUser;
+//           res.locals.success = req.flash('success');
+//           res.locals.error = req.flash('error');
+//           next();
+//         })
+//         .catch((err) => {
+//           res.send(err)
+//         });
+//     } else {
+//       res.locals.currentUser = null;
+//       res.locals.success = req.flash('success');
+//       res.locals.error = req.flash('error');
+//       next();
+//     }
+// });
 app.use((req, res, next) => {
-    if (req.user) {
-      req.user.populate('role').execPopulate()
-        .then((populatedUser) => {
-          res.locals.currentUser = populatedUser;
+  if (req.user) {
+    req.user.populate('role').execPopulate()
+      .then((populatedUser) => {
+        res.locals.currentUser = populatedUser;
+
+        // Check if the user role is "seller"
+        if (populatedUser.role.name === 'seller') {
+          // Assuming the user has a reference to the store
+          populatedUser.store.populate('name').execPopulate()
+            .then((populatedStore) => {
+              res.locals.userStore = populatedStore;
+              res.locals.success = req.flash('success');
+              res.locals.error = req.flash('error');
+              next();
+            })
+            .catch((err) => {
+              res.send(err);
+            });
+        } else {
+          res.locals.currentStore = null;
           res.locals.success = req.flash('success');
           res.locals.error = req.flash('error');
           next();
-        })
-        .catch((err) => {
-          res.send(err)
-        });
-    } else {
-      res.locals.currentUser = null;
-      res.locals.success = req.flash('success');
-      res.locals.error = req.flash('error');
-      next();
-    }
-  });
+        }
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  } else {
+    res.locals.currentUser = null;
+    res.locals.currentStore = null;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+  }
+});
 
 //setup ejs
 app.engine('ejs', ejsMate)
