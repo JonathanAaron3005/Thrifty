@@ -1,7 +1,16 @@
 <% layout('layouts/boilerplate')%>
-<!-- <div>
-    <% for (let tr of transactions){ %>
-        <h3><% tr.user %></h3>
-        <h3><% tr.date %></h3>
-    <% } %>
-</div> -->
+
+<div class="d-flex flex-column" style="height: fit-content; min-height: calc(100% - 0px);">
+    <h1 class="font-poppins" style="width: 100%; text-align: center;">Transaction History</h1>
+
+    <div class="zasize" style="margin-bottom: 1rem; display: flex; flex-wrap: wrap;">
+        <% for (let tr of transactions) {%>
+            <div class="the-card">
+                <a class="card" href="/transaction/<%= tr._id %>">
+                    <h1 class="card-title font-poppins" id="dynamic-card-title-size"><%= tr.date %></h1>
+                    <h1 class="card-title font-poppins" id="dynamic-card-title-size"><%= tr.user %></h1>
+                </a>
+            </div>
+        <% } %>
+    </div>
+</div>

@@ -6,9 +6,7 @@ const Cart = require('../models/cart');
 
 router.get('/', async (req, res) => {
     const transactions = await Transaction.find({ user: req.user }).populate('item');
-    console.log(transactions)
-    res.send('transaction created');
-    // res.render('transactions/view', { transactions });
+    res.render('transactions/view', { transactions });
 })
 
 router.post('/', async (req, res) => {
@@ -21,6 +19,12 @@ router.post('/', async (req, res) => {
     await tr.save();
     await Cart.deleteMany({ user: req.user });
     res.redirect('/transaction');
+})
+
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    const transaction = await Transaction.findById(id);
+    res.render("transactions/detail", { transaction });
 })
 
 module.exports = router;
