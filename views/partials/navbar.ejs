@@ -36,12 +36,14 @@
             <div class="navbar-nav" style="height: fit-content;">
                 <a class="text white" href="/">Home</a>
                 <a class="text white" href="/item">Products</a>
+
                 <% if(currentUser && currentUser.role.name === "seller") {%>
-                    <a class="text white" href="/item/new">New Product</a>
+                    <% if (userStore != null) { %>
+                        <a class="text white" href="/item/new">New Product</a>
+                    <% } else {%>
+                        <a class="text white" href="/store/new">New Store</a>
+                    <% } %>
                 <% }%>
-                <% if(currentUser && currentUser.role.name === "buyer") {%>
-                    <a class="text white" href="/cart">View Cart</a>
-                <% } %>
             </div>
             <div class="navbar-nav ml-auto" style="height: fit-content;">
                 <% if(!currentUser) {%>
