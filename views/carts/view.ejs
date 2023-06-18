@@ -1,21 +1,40 @@
 <% layout('layouts/boilerplate')%>
-<div class="d-flex flex-column align-items-center" style="height: fit-content; min-height: calc(100% - 0px);">
-    <h1>Your Shopping Cart</h1>
+<style>
+    .square-img {
+        max-width: 100%;
+        max-height: 100%;
+        height: auto;
+        object-fit: contain;
+        aspect-ratio: 1/1;
+    }
 
-    <div class="row" style="width: 60%">
+    .textlabel {
+        font-size: 1rem;
+    }
+
+    .bold {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+</style>
+
+<div class="d-flex flex-column align-items-center" style="height: fit-content; min-height: calc(100% - 0px);">
+    <!-- <h1>Your Shopping Cart</h1> -->
+
+    <div class="row mt-5" style="width: 60%">
         <div class="col d-flex flex-column mb-1">
             <% for (let cart of carts){%>
-                <div class="card">
+                <div class="card mb-3">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col d-flex justify-content-center">
                             <%if(cart.item.images.length) {%>
-                            <img class="img-fluid" alt="" src="<%=cart.item.images[0].url%>">
+                            <img class="square-img" alt="" src="<%=cart.item.images[0].url%>">
                             <% }else {%>
-                            <img class="img-fluid" alt=""
+                            <img class="square-img" alt=""
                                 src="https://plus.unsplash.com/premium_photo-1673458070037-8cc98a465c0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=455&q=80">
                             <% } %>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col">
                             <div class="card-body">
                                 <h5 class="card-title"><%= cart.item.name %> </h5>
                                 <p class="card-text">
@@ -23,17 +42,20 @@
                                     <small class="price-label text-muted"><%= cart.item.price%></small>
                                 </p>
                                 <h6 class="card-title price-label"><%= cart.quantity * cart.item.price %></h6>
-                                <form class="mb-3" action="/cart/<%=cart._id%>?_method=DELETE" method="POST">
-                                    <button class="btn btn-danger">Delete</button>
-                                </form>
-                                <form action="/cart/<%=cart._id%>?_method=PUT" method="POST">
-                                    <div class="mb-2">
-                                        <label class="form-label" for="qty">Edit Quantity</label>
-                                        <input class="form-control" type="number" id="qty" name="quantity" 
-                                            value="<%= cart.quantity %>" required>
-                                    </div>
-                                    <button class="btn btn-success">Edit</button>
-                                </form>
+                            </div>
+                        </div>
+                        <div class="col d-flex flex-column justify-content-center">
+                            <form id="updateForm" action="/cart/<%=cart._id%>?_method=PUT" method="post"></form>
+                            <form id="deleteForm" action="/cart/<%=cart._id%>?_method=DELETE" method="post"></form>
+
+                            <div>
+                                <label class="form-label" for="qty">Edit Quantity</label>
+                                <input class="form-control" type="number" id="qty" name="quantity" value="<%= cart.quantity %>" form="updateForm" required>
+
+                                <div class="d-flex">
+                                    <input type="submit" class="btn btn-success" name="update" value="Update" form="updateForm"></input>
+                                    <input type="submit" class="btn btn-danger" name="delete" value="Delete" form="deleteForm"></input>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -41,7 +63,43 @@
             <% }%>
         </div>
         <div class="col d-flex flex-column">
-            a
+            <div class="orange d-flex flex-column" style="padding: 8px 16px">
+                <div class="font-poppins bold mb-1">Summary</div>
+                <div class="d-flex" style="width: 100%;">
+                    <div style="margin-right: 10px">
+                        <h3 class="font-poppins textlabel">Shipping fee:</h3>
+                        <h3 class="font-poppins textlabel">Service fee:</h3>
+                        <h3 class="font-poppins textlabel">Insurance fee:</h3>
+                        <h3 class="font-poppins textlabel">Total price:</h3>
+                    </div>
+                    <div>
+                        <h3 class="font-poppins textlabel">Rp 5.000,00</h3>
+                        <h3 class="font-poppins textlabel">Rp 50.000,00</h3>
+                        <h3 class="font-poppins textlabel">Rp 15.000,00</h3>
+                        
+                        <%
+                            let total = 0;
+                            for (let cart of carts) {
+                                total += cart.quantity * cart.item.price;
+                            }
+                        %>
+                        <h3 class="font-poppins textlabel price-label"><%= total %></h3>
+                    </div>
+                </div>
+                <div class="line" style="background-color: black; width: 100%; height: 2px; margin: 0.5rem 0 0.5rem 0; opacity: 0.5"></div>
+
+                <%
+                    let final = 0;
+                    final += total
+                    final += 5000 + 50000 + 15000 // hardcoded wee
+                %>
+                <div class="d-flex align-items-center">
+                    <div class="font-poppins mb-1 mr-3">Final price:</div> <div class="font-poppins bold mb-1 price-label"><%= final %></div>
+                </div>
+            </div>
+
+            <form id="checkoutForm" action="/" method="post"></form>
+            <input type="submit" name="checkout" value="Checkout" class="black-rounded-button font-poppins mt-4" style="width: 100%;" form="checkoutForm"></input>
         </div>
     </div>
 </div>
