@@ -5,7 +5,7 @@ const roleSchema = new Schema({
     name: String
 })
 
-var Role = mongoose.model('Role', roleSchema);
+const Role = mongoose.model('Role', roleSchema);
 
 (["seller", "buyer"]).forEach(element => {
     if (Role.findOne({name: element}) == null) {
