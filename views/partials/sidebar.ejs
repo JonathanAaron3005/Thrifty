@@ -4,14 +4,13 @@
         border: none;
     }
 
-    .button.rounded {
-        border-radius: 100px;
-        background-color: rgb(230, 230, 230);
+    .button.zeround {
+        border-radius: 15px;
+        background-color: rgb(255, 255, 255);
     }
 
     .button.circle {
         border-radius: 100px;
-        background-color: rgb(255, 198, 113);
     }
 
     .floaty {
@@ -30,16 +29,16 @@
 </style>
 
 <div id="floaty" class="large floaty d-flex flex-column justify-content-center align-items-center" style="<%= currentUser === null ? 'display: none;' : ''%>">
-    <button class="button rounded mb-3" style="width: 80%; height: 80px">
-        awkoawko
+    <button class="button zeround mb-3" style="width: 80%; height: 80px">
+        profile
     </button>
     
-    <button class="button rounded mb-3" style="width: 80%; height: 80px">
-        
+    <button class="button zeround mb-3" style="width: 80%; height: 80px">
+        cart
     </button>
 
-    <button class="button circle" style="width: 100%; height: 100px">
-        
+    <button class="button circle orange" style="width: 100%; height: 100px">
+        orders
     </button>
 </div>
 
