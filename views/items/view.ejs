@@ -20,14 +20,14 @@
     border: 0;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 720px) {
     .zasize {
         width: calc(100vw - 15px);
         margin-left: 0;
     }
 
     .the-card {
-        max-width: calc(100% / 2);
+        max-width: calc(100% / 3);
     }
 }
 
@@ -56,7 +56,7 @@
 </style>
 
 <div class="d-flex flex-column" style="height: fit-content; min-height: calc(100% - 0px);">
-    <h1 class="font-poppins">All Items</h1>
+    <h1 class="font-poppins" style="width: 100%; text-align: center;">All Items</h1>
 
     <div class="zasize" style="margin-bottom: 1rem; display: flex; flex-wrap: wrap;">
         <% for (let item of items) { for (i = 1; i <= 100; i++) {%>
