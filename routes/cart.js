@@ -4,7 +4,7 @@ const Cart = require('../models/cart');
 const Item = require('../models/item');
 
 router.get('/', async (req, res) => {
-    const carts = await Cart.find({}).populate('item');
+    const carts = await Cart.find({ user: req.user }).populate('item');
     res.render('carts/view', { carts });
 })
 

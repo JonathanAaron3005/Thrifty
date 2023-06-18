@@ -1,0 +1,7 @@
+<% layout('layouts/boilerplate')%>
+<div>
+    <% for (let tr of transactions){ %>
+        <h3><% tr.user %></h3>
+        <h3><% tr.date %></h3>
+    <% } %>
+</div>

@@ -96,6 +96,7 @@ const userRoutes = require('./routes/user');
 const storeRoutes = require('./routes/store');
 const reviewRoutes = require('./routes/review');
 const cartRoutes = require('./routes/cart');
+const trRoutes = require('./routes/transaction');
 
 //public setup
 app.use(express.static(path.join(__dirname, 'public')))
@@ -106,6 +107,7 @@ app.use('/user', userRoutes);
 app.use('/store', storeRoutes);
 app.use('/item/:id/reviews', reviewRoutes);
 app.use('/cart', cartRoutes);
+app.use('/transaction', trRoutes);
 
 app.get('/homepage', (req, res) => {
   res.render('homepage');
