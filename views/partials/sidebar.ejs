@@ -21,6 +21,16 @@
         right: 25px;
     }
 
+    .cgsahjdfas {
+        text-decoration: none;
+        color: black;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+
+        display: flex;
+    }
+
     @media (max-width: 400px) {
         .large {
             display: none;
@@ -29,17 +39,17 @@
 </style>
 
 <div id="floaty" class="large floaty d-flex flex-column justify-content-center align-items-center" style="<%= currentUser === null ? 'display: none;' : ''%>">
-    <button class="button zeround mb-3" style="width: 80%; height: 80px">
+    <a class="button zeround cgsahjdfas mb-3" style="width: 80%; height: 80px" href="/user/">
         profile
-    </button>
+    </a>
     
-    <button class="button zeround mb-3" style="width: 80%; height: 80px">
+    <a class="button zeround cgsahjdfas mb-3" style="width: 80%; height: 80px" href="/cart/">
         cart
-    </button>
+    </a>
 
-    <button class="button circle orange" style="width: 100%; height: 100px">
+    <a class="button circle cgsahjdfas orange" style="width: 100%; height: 100px" href="/">
         orders
-    </button>
+    </a>
 </div>
 
 <script>

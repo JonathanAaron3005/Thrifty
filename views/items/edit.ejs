@@ -1,68 +1,71 @@
 <% layout('layouts/boilerplate')%>
-<div class="row">
-    <h1 class="text-center">Edit Item</h1>
-    <div class="col-md-6 offset-md-3">
-        <form action="/item/<%=item._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label class="form-label" for="name">Item Name</label>
-                <input class="form-control" type="text" id="name" name="name" 
-                    value="<%= item.name %>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="location">Stock</label>
-                <input class="form-control" type="number" id="stock" name="stock" 
-                    value="<%= item.stock %>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
 
-            <div class="mb-3">
-                <label class="form-label" for="price">Item Price</label>
-                <div class="input-group">
-                    <span class="input-group-text" id="price-label">IDR</span>
-                    <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
-                        aria-describedby="price-label" name="price" value="<%= item.price %>" required>
+<div class="d-flex flex-column align-items-center" style="height: fit-content; min-height: calc(100% - 0px); overflow-y: hidden;">
+    <div class="row">
+        <h1 class="text-center">Edit Item</h1>
+        <div class="col-md-6 offset-md-3">
+            <form action="/item/<%=item._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Item Name</label>
+                    <input class="form-control" type="text" id="name" name="name" 
+                        value="<%= item.name %>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
-                <div class="valid-feedback">
-                    Looks good!
+                <div class="mb-3">
+                    <label class="form-label" for="location">Stock</label>
+                    <input class="form-control" type="number" id="stock" name="stock" 
+                        value="<%= item.stock %>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
-            </div>
 
-            <div class="mb-3">
-                <label class="form-label" for="description">Description</label>
-                <textarea class="form-control" type="text" id="description" name="description"
-                    required><%= item.description %>"</textarea>
-                <div class="valid-feedback">
-                    Looks good!
+                <div class="mb-3">
+                    <label class="form-label" for="price">Item Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="price-label">IDR</span>
+                        <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
+                            aria-describedby="price-label" name="price" value="<%= item.price %>" required>
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <div class="form-file custom-file">
-                    <input type="file" class="form-file-input" id="image" name="image" multiple>
-                    <label class="form-file-label" for="image">
-                        <span class="form-file-text custom-file-label">Add more image(s)...</span>
-                        <span class="form-file-button">Browse</span>
-                    </label>
-                </div>
-            </div>
-            <div class="mb-3">
-                <% item.images.forEach(function(img, i) {  %>
 
-                <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="">
-                <div class="form-check-inline">
-                    <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="description"
+                        required><%= item.description %>"</textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
-                <label for="image-<%=i%>">Delete?</label>
-                <% })%>
-            </div>
-            <div class="mb-3">
-                <button class="btn btn-success">Update Item</button>
-            </div>
-        </form>
-        <a href="/items">All Items</a>
+                <div class="mb-3">
+                    <div class="form-file custom-file">
+                        <input type="file" class="form-file-input" id="image" name="image" multiple>
+                        <label class="form-file-label" for="image">
+                            <span class="form-file-text custom-file-label">Add more image(s)...</span>
+                            <span class="form-file-button">Browse</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <% item.images.forEach(function(img, i) {  %>
+
+                    <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="">
+                    <div class="form-check-inline">
+                        <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+                    </div>
+                    <label for="image-<%=i%>">Delete?</label>
+                    <% })%>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success">Update Item</button>
+                </div>
+            </form>
+            <a href="/items">All Items</a>
+        </div>
     </div>
 </div>
