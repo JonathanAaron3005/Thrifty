@@ -45,18 +45,14 @@
                             </div>
                         </div>
                         <div class="col d-flex flex-column justify-content-center">
-                            <form id="updateForm" action="/cart/<%=cart._id%>?_method=PUT" method="post"></form>
-                            <form id="deleteForm" action="/cart/<%=cart._id%>?_method=DELETE" method="post"></form>
-
-                            <div>
+                            <form id="updateForm" action="/cart/<%=cart._id%>?_method=PUT" method="post">
                                 <label class="form-label" for="qty">Edit Quantity</label>
-                                <input class="form-control" type="number" id="qty" name="quantity" value="<%= cart.quantity %>" form="updateForm" required>
-
-                                <div class="d-flex">
-                                    <input type="submit" class="btn btn-success" name="update" value="Update" form="updateForm"></input>
-                                    <input type="submit" class="btn btn-danger" name="delete" value="Delete" form="deleteForm"></input>
-                                </div>
-                            </div>
+                                <input class="form-control" type="number" id="qty" name="quantity" value="<%= cart.quantity %>" required>
+                                <input type="submit" class="btn btn-success" name="update" value="Update"></input>
+                            </form>
+                            <form id="deleteForm" action="/cart/<%=cart._id%>?_method=DELETE" method="post">
+                                <input type="submit" class="btn btn-danger" name="delete" value="Delete"></input>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -74,8 +70,8 @@
                     </div>
                     <div>
                         <h3 class="font-poppins textlabel">Rp 5.000,00</h3>
-                        <h3 class="font-poppins textlabel">Rp 50.000,00</h3>
-                        <h3 class="font-poppins textlabel">Rp 15.000,00</h3>
+                        <h3 class="font-poppins textlabel">Rp 5.000,00</h3>
+                        <h3 class="font-poppins textlabel">Rp 5.000,00</h3>
                         
                         <%
                             let total = 0;
@@ -91,7 +87,7 @@
                 <%
                     let final = 0;
                     final += total
-                    final += 5000 + 50000 + 15000 // hardcoded wee
+                    final += 5000 + 5000 + 5000 // hardcoded wee
                 %>
                 <div class="d-flex align-items-center">
                     <div class="font-poppins mb-1 mr-3">Final price:</div> <div class="font-poppins bold mb-1 price-label"><%= final %></div>

@@ -15,11 +15,16 @@ router.post('/:itemId', async (req, res) => {
         res.redirect(`/item/${itemId}`);
     } else {
         const item = await Item.findById(itemId);
-        const cart = new Cart(req.body);
-        cart.user = req.user._id;
-        cart.item = itemId;
-
-        await cart.save();
+        const existingCart = await Cart.findOne({ item: item, user: req.user._id });
+        if(existingCart) {
+            existingCart.quantity += parseInt(req.body.quantity);
+            await existingCart.save();
+        } else{
+            const cart = new Cart(req.body);
+            cart.user = req.user._id;
+            cart.item = itemId;
+            await cart.save();
+        }
         req.flash('success', `${item.name} added to cart!`);
         res.redirect(`/cart`);
     }
@@ -38,6 +43,7 @@ router.put('/:id', async (req, res) => {
         req.flash('error', 'quantity cannot be below 0!');
         res.redirect(`/cart`);
     } else {
+        console.log(req.body)
         const cart = await Cart.findByIdAndUpdate(id, req.body).populate('item');
         await cart.save();
 
