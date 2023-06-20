@@ -2,7 +2,7 @@
 
 <div class="d-flex flex-column align-items-center" style="height: fit-content; min-height: calc(100% - 0px); overflow-y: hidden;">
     <div class="row">
-        <h1 class="text-center">Edit Item</h1>
+        <h1 class="text-center font-poppins">Edit Item</h1>
         <div class="col-md-6 offset-md-3">
             <form action="/item/<%=item._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
                 <div class="mb-3">
@@ -62,10 +62,9 @@
                     <% })%>
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-success">Update Item</button>
+                    <button class="btn btn-yes">Update Item</button>
                 </div>
             </form>
-            <a href="/items">All Items</a>
         </div>
     </div>
 </div>

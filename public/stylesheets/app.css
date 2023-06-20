@@ -62,16 +62,41 @@
 
     border-style: solid;
     border-color: transparent;
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 0 15px
 }
 
 .btn-yes {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    outline: none !important;
 
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    border-radius: 5px;
+
+    border: 2px solid #FFBF75;
+    background-color: #FFBF75;
 }
 
 .btn-no {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    outline: none !important;
 
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    border-radius: 5px;
+
+    border: 2px solid #ff3c3c;
+    background-color: transparent;
+
+    color: #ff3c3c;
+}
+
+.btn-no:hover {
+    background-color: #ff3c3c;
+    color: white;
 }
 
 .invert { filter: invert(100%); }

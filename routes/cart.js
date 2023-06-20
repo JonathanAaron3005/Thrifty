@@ -44,7 +44,6 @@ router.put('/:id', async (req, res) => {
         req.flash('error', 'quantity cannot be below 0!');
         res.redirect(`/cart`);
     } else {
-        console.log(req.body)
         const cart = await Cart.findByIdAndUpdate(id, req.body).populate('item');
         await cart.save();
 

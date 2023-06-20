@@ -18,20 +18,22 @@
     }
 </style>
 
-<div class="d-flex flex-column align-items-center" style="height: fit-content; min-height: calc(100% - 0px);">
+<div class="d-flex flex-column align-items-center" style="height: fit-content; min-height: calc(100% - 0px)">
     <% if (carts.length === 0){ %>
-    <h1>Your Cart Is Empty!</h1>
-    <a href="/item" class="btn btn-success">Find Items</a>
+        <div class="w-50 d-flex flex-column align-items-center justify-content-center" style="margin-top: 40vh">
+            <h1 class="font-poppins" style="font-weight: 800">Your cart is empty!</h1>
+            <a href="/item" class="btn btn-yes w-25">View products</a>
+        </div>
     <% } else{ %>
-    <h1>Your Shopping Cart</h1>
+        <h1 class="font-poppins" style="margin-top: 1rem;">Your Shopping Cart</h1>
     <%}%>
 
     <div class="row mt-5" style="width: 60%">
         <div class="col d-flex flex-column mb-1">
             <% for (let cart of carts){%>
-                <div class="card mb-3">
+                <div class="card mb-3" style="display: flex">
                     <div class="row">
-                        <div class="col d-flex justify-content-center">
+                        <div class="col-4 d-flex justify-content-center">
                             <%if(cart.item.images.length) {%>
                             <img class="square-img" alt="" src="<%=cart.item.images[0].url%>">
                             <% }else {%>
@@ -39,7 +41,7 @@
                                 src="https://plus.unsplash.com/premium_photo-1673458070037-8cc98a465c0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=455&q=80">
                             <% } %>
                         </div>
-                        <div class="col">
+                        <div class="col-5">
                             <div class="card-body">
                                 <h5 class="card-title"><%= cart.item.name %> </h5>
                                 <p class="card-text">
@@ -49,14 +51,14 @@
                                 <h6 class="card-title price-label"><%= cart.quantity * cart.item.price %></h6>
                             </div>
                         </div>
-                        <div class="col d-flex flex-column justify-content-center">
-                            <form id="updateForm" action="/cart/<%=cart._id%>?_method=PUT" method="post">
-                                <label class="form-label" for="qty">Edit Quantity</label>
-                                <input class="form-control" type="number" id="qty" name="quantity" value="<%= cart.quantity %>" required>
-                                <input type="submit" class="btn btn-success" name="update" value="Update"></input>
+                        <div class="col-3 d-flex flex-column" style="justify-content: center;">
+                            <form id="updateForm" style="width: fit-content;" action="/cart/<%=cart._id%>?_method=PUT" method="post">
+                                <label class="font-poppins" for="qty">Edit Quantity</label>
+                                <input class="form-control" style="width: 90%" type="number" id="qty" name="quantity" value="<%= cart.quantity %>" required>
+                                <input type="submit" style="width: 90%" class="btn btn-yes mt-1" name="update" value="Update"></input>
                             </form>
                             <form id="deleteForm" action="/cart/<%=cart._id%>?_method=DELETE" method="post">
-                                <input type="submit" class="btn btn-danger" name="delete" value="Delete"></input>
+                                <input type="submit" style="width: 90%" class="btn btn-no mt-1" name="delete" value="Delete"></input>
                             </form>
                         </div>
                     </div>

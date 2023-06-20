@@ -147,6 +147,8 @@
     .option-btt.active {
         border-color: black;
         border-width: 2px;
+
+        font-weight: 600;
     }
 </style>
 
@@ -196,7 +198,7 @@
                 <div class="col">
                     <div class="orange d-flex flex-column" style="width: 100%; height: fit-content; padding: 1rem 1rem">
                         <form action="/cart/<%= item._id %>" method="POST" class="validated-form" novalidate onsubmit="return validate()">
-                            <div class="font-poppins desc">Buy Amount</div>
+                            <div class="font-poppins desc">Buy quantity:</div>
                             <div class="textbox-container" style="width: 70%; margin-bottom: 1rem;">
                                 <button type="button" class="font-poppins pencet" id="amount-minus" onclick="onAmountMinus()">-</button>
                                 <input type="text" name="quantity" class="textbox font-poppins" id="amount-input" value="1">
@@ -206,7 +208,7 @@
                             <div class="font-poppins desc">Pick your size:</div>
                             <div class="d-flex flex-wrap" style="margin-bottom: 1rem;">
                                 <% ["XS", "S", "M", "L", "XL"].forEach(size => { %>
-                                    <button type="button" class="btn font-poppins option-btt <%= (size==='XS' ? 'active' : '')%>" style="padding: 5px; min-width: 50px; margin-right: 5px">
+                                    <button type="button" onclick="sizeClick(this)" class="btn font-poppins size-option option-btt <%= (size==='XS' ? 'active' : '')%>" style="padding: 5px; min-width: 50px; margin-right: 5px">
                                         <%= size%>
                                     </button>
                                 <% }) %>
@@ -222,9 +224,9 @@
             <% } else if ( currentUser && item.user.equals(currentUser._id) ) { %>
                 <div class="col">
                     <div class="card-body">
-                        <a class="card-link btn btn-info" href="/item/<%=item._id%>/edit">Edit</a>
+                        <a class="card-link btn btn-yes" href="/item/<%=item._id%>/edit">Edit</a>
                         <form class="d-inline" action="/item/<%=item._id%>?_method=DELETE" method="POST">
-                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-no">Delete</button>
                         </form>
                     </div>
                 </div>
@@ -233,10 +235,10 @@
             <% } %>
         </div>
         <% if (currentUser && currentUser.role.name == "buyer"){%>
-            <h2>Leave a Review</h2>
+            <h2 class="font-poppins mt-3">Leave a Review</h2>
             <form action="/item/<%=item._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
                 <!-- <div class="mb-3">
-                    <label class="form-label" for="rating">Rating</label>
+                    <label class="form-label font-poppins" for="rating">Rating</label>
                     <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">
                 </div> -->
                 <fieldset class="starability-basic">
@@ -254,28 +256,28 @@
                     <label for="first-rate5" title="Amazing">5 stars</label>
                 </fieldset>
                 <div class="mb-3">
-                    <label class="form-label" for="body">Review Text</label>
+                    <label class="form-label font-poppins" for="body">Review Text</label>
                     <textarea class="form-control" name="body" id="body" cols="30" rows="3" required></textarea>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
                 </div>
-                <button class="btn btn-success">Submit</button>
+                <button class="btn btn-yes">Submit Review</button>
             </form>
         <% } %>
-        Comments
+        <div class="font-poppins">Comments</div>
         <% for(let review of item.reviews) { %>
             <div class="card mb-3 ">
                 <div class="card-body">
-                    <h5 class="card-title"> <%= review.user.username%></h5>
+                    <h5 class="card-title font-poppins"> <%= review.user.username%></h5>
                     <p class="starability-result" data-rating="<%=review.rating%>">
                         Rated: <%= review.rating %> stars
                     </p>
                     <!-- <h6 class="card-subtitle mb-2 text-muted">By <%= review.user.username%></h6> -->
-                    <p class="card-text">Review: <%= review.body %></p>
+                    <p class="card-text font-poppins"><b>Review:</b> <%= review.body %></p>
                     <%  if( currentUser && review.user.equals(currentUser._id))  {%>
                     <form action="/item/<%=item._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-                        <button class="btn btn-sm btn-danger">Delete</button>
+                        <button class="btn btn-sm btn-no">Delete Review</button>
                     </form>
                     <% } %>
                 </div>
@@ -292,7 +294,7 @@
         if (currAmm + addition >= 1) {
             currAmm += addition;
         }
-        input.value = currAmm
+            input.value = currAmm
 
         const minButton = document.getElementById("amount-minus")
         if (currAmm > 1) {
@@ -300,6 +302,17 @@
         } else {
             minButton.classList.remove("active")
         }
+    }
+
+    function sizeClick(size) {
+        const btns = document.querySelectorAll(".size-option")
+        btns.forEach(the_button => {
+            if (the_button == size) {
+                the_button.classList.add("active")
+            } else {
+                the_button.classList.remove("active")
+            }
+        })
     }
 
     function onAmountMinus() {
