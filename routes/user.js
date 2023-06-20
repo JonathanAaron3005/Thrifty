@@ -5,11 +5,24 @@ const Role = require('../models/role');
 const passport = require('passport');
 
 router.get('/', (req, res) => {
-    res.send('seller')
+    res.redirect("/user/profile")
+})
+
+router.get('/profile', (req, res) => {
+    if (!req.user) {
+        res.redirect("/user/login")
+        return;
+    }
+    
+    res.render("users/profile", {})
 })
 
 router.get('/register', (req, res) => {
-    res.render('users/register')
+    if (req.user) {
+        res.redirect("/")
+    } else {
+        res.render('users/register')
+    }
 })
 
 router.post('/register', async (req, res) => {
@@ -39,6 +52,10 @@ router.post('/register', async (req, res) => {
 })
 
 router.get('/login', (req, res) => {
+    if (req.user) {
+        res.redirect("/")
+        return;
+    }
     res.render('users/login');
 })
 
