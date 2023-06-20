@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/user')
 const Role = require('../models/role');
 const passport = require('passport');
+const Store = require( "../models/store" )
 
 router.get('/', (req, res) => {
     res.redirect("/user/profile")
@@ -14,7 +15,10 @@ router.get('/profile', (req, res) => {
         return;
     }
     
-    res.render("users/profile", {})
+    var currentUser = req.user;
+    var currentStore = Store.findOne({user: currentUser})
+
+    res.render("users/profile", {currentUser, currentStore})
 })
 
 router.get('/register', (req, res) => {

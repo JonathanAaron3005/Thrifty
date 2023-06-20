@@ -36,19 +36,23 @@
             display: none;
         }
     }
+
+    img {
+        height: 50%;
+    }
 </style>
 
 <% if (currentUser != null) { %>
     <div id="floaty" class="large floaty d-flex flex-column justify-content-center align-items-center">
         <a class="button zeround cgsahjdfas mb-3 <%= currentUser && currentUser.role.name === 'seller' ? 'orange' : ''%>" style="width: 80%; height: 80px" href="/user/">
-            profile
+            <img src="https://cdn.discordapp.com/attachments/694736624071737374/1120613915294961686/icons8-user-96.png" alt="">
         </a>
         <% if(currentUser && currentUser.role.name != "seller") {%>
             <a class="button zeround cgsahjdfas mb-3" style="width: 80%; height: 80px" href="/cart/">
-                cart
+                <img src="https://cdn.discordapp.com/attachments/694736624071737374/1120613915034927204/icons8-shopping-cart-96.png" alt="">
             </a>
             <a class="button circle cgsahjdfas orange" style="width: 100%; height: 100px" href="/transaction">
-                orders
+                <img src="https://cdn.discordapp.com/attachments/694736624071737374/1120613914703573002/icons8-receipt-96.png" alt="">
             </a>
         <% } %>
     </div>

@@ -1,5 +1,155 @@
 <% layout('layouts/boilerplate')%>
 
+<style>
+    .row {
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        border: 0px solid transparent;
+
+        overflow: hidden;
+        max-width: 800px;
+    }
+
+    .left-col {
+        border-right: 2px solid rgba(0, 0, 0, 0.1);
+        min-width: 150px;
+    }
+
+    .col {
+        padding: 0;
+    }
+
+    .smallme {
+        padding-left: 10px;
+        margin-top: 5px;
+
+        font-weight: 900;
+        font-size: 12px;
+
+        color: grey
+    }
+
+    button.rawr {
+        border: none;
+        background-color: transparent;
+
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 2px;
+
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        height: 40px
+    }
+
+    button.rawr:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    button.rawr:hover {
+        background-color: rgb(216, 216, 216);
+    }
+
+    button.rawr.active {
+        background-color: rgb(216, 216, 216);
+    }
+
+    .ze-content {
+        width: 100%;
+        height: 100%;
+    }
+
+    .ze-title {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .ze-right-btt {
+        margin-left: auto;
+        font-size: 14px
+    }
+
+    .dark-bit {
+        background-color: rgba(0, 0, 0, 0.1);
+        min-width: fit-content;
+        padding: 5px 10px
+    }
+</style>
+
 <div class="d-flex flex-column align-items-center" style="height: fit-content; min-height: calc(100% - 0px);">
-    
+    <h1 class="font-poppins" style="width: 100%; text-align: center; margin-top: 1rem">Your Profile</h1>
+    <div class="row d-flex" style="width: 50%">
+        <div class="col d-flex flex-grow">
+            <div class="left-col">
+                <div class="font-poppins smallme">USER SETTINGS</div>
+                <button class="rawr font-poppins text-left section-btt active" id="profile-data" onclick="changeSection(this)">My Account</button>
+                <button class="rawr font-poppins text-left section-btt" id="user-data" onclick="changeSection(this)">User Profile</button>
+                <div class="font-poppins smallme">WEBSITE SETTINGS</div>
+                <button class="rawr font-poppins text-left section-btt" id="store-data" onclick="changeSection(this)">My Store</button>
+            </div>
+
+            <%
+                function maskCharactersBeforeAtSymbol(str) {
+                    const atIndex = str.indexOf("@");
+                    
+                    if (atIndex !== -1) {
+                        const charactersBefore = str.substring(0, atIndex);
+                        const maskedString = "*".repeat(charactersBefore.length) + str.substring(atIndex);
+                        return maskedString;
+                    }
+                
+                    return str;
+                }
+            %>
+            <div class="orange" style="margin-left: auto; width: calc(100% - 150px); padding: 10px 10px; margin: 0;">
+                <div id="profile-data" class="ze-content">
+                    <div class="ze-title font-poppins mb-3">My Account</div>
+                    <div style="padding-left: 10px">
+                        <div class="font-poppins smallme" style="color: black; padding: 0">USERNAME</div>
+                        <div class="d-flex flex-wrap mb-3">
+                            <div class="font-poppins d-flex justify-content-center align-items-center"><%= currentUser.username%></div>
+                            <button class="btn-yes dark-bit ze-right-btt">Edit</button>
+                        </div>
+                        
+                        <div class="font-poppins smallme" style="color: black; padding: 0">EMAIL</div>
+                        <div class="d-flex flex-wrap">
+                            <div class="font-poppins d-flex justify-content-center align-items-center"><%= maskCharactersBeforeAtSymbol(currentUser.email)%></div>
+                            <button class="btn-yes dark-bit ze-right-btt">Edit</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="user-data" class="ze-content d-none">
+
+                </div>
+                <div id="store-data" class="ze-content d-none">
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    function changeSection(btt) {
+        var get_id = btt.id;
+        document.querySelectorAll(".ze-content").forEach(component => {
+            if (component.id === get_id) {
+                component.classList.remove("d-none");
+            } else {
+                component.classList.add("d-none")
+            }
+        })
+
+        document.querySelectorAll(".section-btt").forEach(get => {
+            if (get.id == get_id) {
+                get.classList.add("active")
+            } else {
+                get.classList.remove("active")
+            }
+        })
+    }
+</script>
