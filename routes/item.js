@@ -17,10 +17,10 @@ router.get('/new', async (req, res) => {
 })
 
 router.post('/', upload.array('image'), async (req, res) => {
-    if(req.body.price < 0){
+    if (req.body.price < 0) {
         req.flash('error', 'price cannot be below 0!');
         res.redirect(`/item/new`);
-    } else if(req.body.stock < 0){
+    } else if (req.body.stock < 0) {
         req.flash('error', 'stock cannot be below 0!');
         res.redirect(`/item/new`);
     } else {
@@ -30,13 +30,19 @@ router.post('/', upload.array('image'), async (req, res) => {
         item.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
         item.user = currentUser;
         store.items.push(item);
-    
+
         await item.save();
         await store.save();
-    
+
         req.flash('success', 'item added!');
         res.redirect(`/item/${item._id}`);
     }
+})
+
+router.get('/search', async (req, res) => {
+    const { query } = req.query;
+    const items = await Item.find({ name: { $regex: query, $options: 'i' } })
+    res.render('items/view', { items });
 })
 
 router.get('/:id', async (req, res) => {
@@ -52,16 +58,16 @@ router.get('/:id', async (req, res) => {
         return res.redirect('/homepage');
     }
     const store = await Store.findOne({ items: { $elemMatch: { $eq: id } } });
-    
+
     res.render('items/detail', { item, store });
 })
 
 router.put('/:id', upload.array('image'), async (req, res) => {
     const { id } = req.params;
-    if(req.body.price < 0){
+    if (req.body.price < 0) {
         req.flash('error', 'price cannot be below 0!');
         res.redirect(`/item/${id}/edit`);
-    } else if(req.body.stock < 0){
+    } else if (req.body.stock < 0) {
         req.flash('error', 'stock cannot be below 0!');
         res.redirect(`/item/${id}/edit`);
     } else {

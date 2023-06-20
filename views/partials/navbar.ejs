@@ -46,6 +46,10 @@
                 <% }%>
             </div>
             <div class="navbar-nav ml-auto" style="height: fit-content;">
+                <form action="/item/search" class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
                 <% if(!currentUser) {%>
                     <a class="text white" href="/user/login">Login</a>
                     <a class="text white" href="/user/register">Register</a>
