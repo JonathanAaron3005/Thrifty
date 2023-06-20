@@ -9,6 +9,12 @@ router.get('/', async (req, res) => {
     res.render('carts/view', { carts });
 })
 
+router.delete('/', async (req, res) => {
+    await Cart.deleteMany({ user: req.user })
+    req.flash('success', 'Cart Cleared!');
+    res.redirect(`/cart`);
+})
+
 router.post('/:itemId', async (req, res) => {
     const { itemId } = req.params;
     if (req.body.quantity < 0) {
@@ -17,10 +23,10 @@ router.post('/:itemId', async (req, res) => {
     } else {
         const item = await Item.findById(itemId);
         const existingCart = await Cart.findOne({ item: item, user: req.user._id });
-        if(existingCart) {
+        if (existingCart) {
             existingCart.quantity += parseInt(req.body.quantity);
             await existingCart.save();
-        } else{
+        } else {
             const cart = new Cart(req.body);
             cart.user = req.user._id;
             cart.item = itemId;

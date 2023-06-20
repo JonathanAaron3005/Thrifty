@@ -38,7 +38,7 @@
             <div class="col d-flex flex-column mb-1">
                 <div class="mb-3 d-flex justify-content-center" style="padding: 5px 5px 10px 10px; border-bottom: 2px solid rgba(0, 0, 0, 0.5); border-radius: 0px">
                     <div class="font-poppins idk-text" style="display: flex; justify-content: center; align-items: center">You have <%= carts.length%> item(s).</div>
-                    <form id="clearCartForm" action="/cart/clear" method="post" style="margin-left: auto; color: red">
+                    <form id="clearCartForm" action="/cart?_method=DELETE" method="post" style="margin-left: auto; color: red">
                         <input type="submit" class="btn font-poppins idk-text" style="height: auto; padding: 5px 10px; color: white; font-weight: 900; background-color: rgba(255, 0, 0, 1); border: 2px solid red" name="delete" value="Clear cart"></input>
                     </form>
                 </div>

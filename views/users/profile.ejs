@@ -91,8 +91,10 @@
                 <div class="font-poppins smallme">USER SETTINGS</div>
                 <button class="rawr font-poppins text-left section-btt active" id="profile-data" onclick="changeSection(this)">My Account</button>
                 <button class="rawr font-poppins text-left section-btt" id="user-data" onclick="changeSection(this)">User Profile</button>
-                <div class="font-poppins smallme">WEBSITE SETTINGS</div>
-                <button class="rawr font-poppins text-left section-btt" id="store-data" onclick="changeSection(this)">My Store</button>
+                <% if(userStore){ %>
+                    <div class="font-poppins smallme">WEBSITE SETTINGS</div>
+                    <button class="rawr font-poppins text-left section-btt" id="store-data" onclick="changeSection(this)">My Store</button>
+                <% } %>
             </div>
 
             <%
