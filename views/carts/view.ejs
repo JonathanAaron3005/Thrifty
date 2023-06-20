@@ -16,6 +16,11 @@
         font-size: 1.5rem;
         font-weight: 600;
     }
+
+    .idk-text {
+        font-size: 14px;
+        text-decoration: none;
+    }
 </style>
 
 <div class="d-flex flex-column align-items-center" style="height: fit-content; min-height: calc(100% - 0px)">
@@ -30,6 +35,12 @@
 
     <div class="row mt-5" style="width: 60%">
         <div class="col d-flex flex-column mb-1">
+            <div class="mb-3 d-flex justify-content-center" style="padding: 5px 5px 10px 10px; border-bottom: 2px solid rgba(0, 0, 0, 0.5); border-radius: 0px">
+                <div class="font-poppins idk-text" style="display: flex; justify-content: center; align-items: center">You have <%= carts.length%> item(s).</div>
+                <form id="clearCartForm" action="/cart/clear" method="post" style="margin-left: auto; color: red">
+                    <input type="submit" class="btn font-poppins idk-text" style="height: auto; padding: 5px 10px; color: white; font-weight: 900; background-color: rgba(255, 0, 0, 1); border: 2px solid red" name="delete" value="Clear cart"></input>
+                </form>
+            </div>
             <% for (let cart of carts){%>
                 <div class="card mb-3" style="display: flex">
                     <div class="row">
