@@ -45,16 +45,21 @@
                     <% } %>
                 <% }%>
             </div>
-            <div class="navbar-nav ml-auto" style="height: fit-content;">
-                <form action="/item/search" class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+            <div class="navbar-nav ml-auto d-flex align-items-center justify-content-center" style="height: fit-content;">
+                <!-- who the hell decides if something is null then just crash the system. -->
+                <% var query = query || null; %>
+
+                <form action="/item/search" class="d-flex align-items-center" style="justify-content: flex-end; height: 2rem;" role="search">
+                    <input class="searchbar font-poppins mr-2 h-100" style="width: 50%" type="search" name="query" placeholder="Search" aria-label="Search" value='<%= query === "" ? "" : query%>'>
+                    <button class="bland-btt btn d-flex align-items-center justify-content-center h-75" style="background-color: transparent;">
+                        <img class="invert h-100" src="https://cdn.discordapp.com/attachments/694736624071737374/1120585822740160562/search.png" alt="">
+                    </button>
                 </form>
                 <% if(!currentUser) {%>
-                    <a class="text white" href="/user/login">Login</a>
+                    <a class="text white ml-5" href="/user/login">Login</a>
                     <a class="text white" href="/user/register">Register</a>
                 <% } else {%>
-                    <p class="text white">Welcome <%= currentUser.username %>. <a style="font-weight: bolder; text-decoration: none;" href="/user/logout">Logout</a></p>
+                    <p class="text white ml-5">Welcome <%= currentUser.username %>. <a style="font-weight: bolder; text-decoration: none;" href="/user/logout">Logout</a></p>
                 <% } %>
             </div>
         </div>

@@ -134,6 +134,20 @@
         font-size: 0.75rem;
         font-weight: 600;
     }
+
+    .option-btt {
+        border-radius: 20px;
+        border-color: transparent;
+        border-style: solid;
+
+        background-color: white;
+        font-size: 1rem;
+    }
+
+    .option-btt.active {
+        border-color: black;
+        border-width: 2px;
+    }
 </style>
 
 <div class="row d-flex flex-column align-items-center" style="height: fit-content; min-height: calc(100% - 0px);">
@@ -187,6 +201,15 @@
                                 <button type="button" class="font-poppins pencet" id="amount-minus" onclick="onAmountMinus()">-</button>
                                 <input type="text" name="quantity" class="textbox font-poppins" id="amount-input" value="1">
                                 <button type="button" class="font-poppins pencet  active" onclick="onAmountPlus()">+</button>
+                            </div>
+                            <div class="line" style="background-color: black; width: 100%; height: 2px; margin-bottom: 1rem; opacity: 0.5"></div>
+                            <div class="font-poppins desc">Pick your size:</div>
+                            <div class="d-flex flex-wrap" style="margin-bottom: 1rem;">
+                                <% ["XS", "S", "M", "L", "XL"].forEach(size => { %>
+                                    <button type="button" class="btn font-poppins option-btt <%= (size==='XS' ? 'active' : '')%>" style="padding: 5px; min-width: 50px; margin-right: 5px">
+                                        <%= size%>
+                                    </button>
+                                <% }) %>
                             </div>
                             <div class="line" style="background-color: black; width: 100%; height: 2px; margin-bottom: 1rem; opacity: 0.5"></div>
                             <div class="d-flex flex-wrap align-items-center justify-content-center">

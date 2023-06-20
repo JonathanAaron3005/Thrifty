@@ -36,3 +36,42 @@
     /* font-weight: bold; */
     color: white;
 }
+
+/* */
+
+.btn-search {
+    border-radius: 0px;
+}
+
+.bland-btt {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+
+    border-radius: 0;
+    appearance: none;
+    display: flex;
+
+    padding: 0;
+}
+
+.searchbar {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 8px;
+    padding: 0 15px
+}
+
+.btn-yes {
+
+}
+
+.btn-no {
+
+}
+
+.invert { filter: invert(100%); }

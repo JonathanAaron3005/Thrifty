@@ -42,7 +42,7 @@ router.post('/', upload.array('image'), async (req, res) => {
 router.get('/search', async (req, res) => {
     const { query } = req.query;
     const items = await Item.find({ name: { $regex: query, $options: 'i' } })
-    res.render('items/view', { items });
+    res.render('items/view', { query, items });
 })
 
 router.get('/:id', async (req, res) => {
