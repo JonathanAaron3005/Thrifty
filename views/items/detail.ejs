@@ -15,7 +15,6 @@
         max-height: 100%;
         height: auto;
         object-fit: contain;
-        aspect-ratio: 1/1;
     }
 
     .card-title {
@@ -169,7 +168,7 @@
                             </div>
                         <% } %>
                     </div>
-                    <% if(item.images.length > 1) {%>
+                    <% if(item.images.length >= 2) {%>
                         <a class="carousel-control-prev" href="#itemCarousel" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
