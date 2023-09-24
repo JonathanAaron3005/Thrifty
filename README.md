@@ -1,6 +1,16 @@
 # Thrifty
 
-Kelompok 10
+This project is a team project in my Software Engineering course. We decided to make Thrifty, which is a web app for buying and selling second-hand items related to fashion (clothes, shoes, etc. We 
+created Thrifty because we saw a problem where buying and selling second-hand fashion items in general still relies on social media and general marketplaces so that there is a lack of a convenient 
+and reliable way to buy and sell second-hand fashion items. 
+
+We researched various websites and social media that are used to buy and sell second-hand items and distributed google forms to meet 
+feature requirements. After creating use cases and activity diagrams, we started development by making a prototype design using Figma. Then, we implement it into code using HTML, CSS, 
+JavaScript, EJS (Embedded JavaScript), and Bootstrap for User Interface. For the back end, we use Express.js and integrate it with MongoDB (NoSQL Database) using Mongoose. 
+
+We also use 
+packages on NPM and dependencies such as Passport for user authentication and authorization. In our model, there are several objects like User, Item, etc. We limit the features that can only be 
+accessed by users with certain roles, namely buyers and sellers. The architectural style we use is REST. We provide an easy-to-use user interface and a good rating and review system.
 
 ## How to Install
 
